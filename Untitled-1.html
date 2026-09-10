@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pratiksha Patil — AI Engineer × Creative Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FAFAFA;
+    --bg-shift: #F1F1EF;
+    --fg: #0A0A0A;
+    --muted: #8C8C8C;
+    --border: #E5E5E5;
+    --accent: #0218B4;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    margin:0;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background: var(--accent); color:#fff; }
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap{ max-width: 1280px; margin:0 auto; padding: 0 40px; }
+  @media (max-width: 700px){ .wrap{ padding: 0 22px; } }
+
+  .label{
+    font-family:'Inter', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* reveal-on-scroll */
+  .reveal{ opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position: fixed;
+    top:0; left:0; right:0;
+    z-index: 100;
+    background: rgba(250,250,250,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-row{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    height: 76px;
+  }
+  .nav-mark{
+    font-family:'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .nav-links{
+    display:none;
+    align-items:center;
+    gap: 34px;
+  }
+  @media (min-width: 860px){ .nav-links{ display:flex; } }
+  .nav-links a{
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fg);
+    position: relative;
+    padding-bottom: 3px;
+  }
+  .nav-links a::after{
+    content:"";
+    position:absolute; left:0; right:100%;
+    bottom:0; height:1px;
+    background: var(--fg);
+    transition: right .25s ease;
+  }
+  .nav-links a:hover::after{ right: 0; }
+  .status{
+    display:flex; align-items:center; gap:8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .status .dot{
+    width:6px; height:6px; border-radius:50%;
+    background: var(--accent);
+    animation: blink 2.4s ease-in-out infinite;
+  }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+  .nav-right{ display:flex; align-items:center; gap:32px; }
+  .nav-toggle{ display:flex; background:none; border:none; cursor:pointer; padding:6px; }
+  @media (min-width: 860px){ .nav-toggle{ display:none; } }
+  .nav-toggle span{ display:block; width:20px; height:2px; background:var(--fg); margin:4px 0; }
+  .mobile-menu{
+    display:none;
+    flex-direction: column;
+    padding: 20px 0 28px;
+    border-top: 1px solid var(--border);
+  }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu a{
+    padding: 12px 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+  }
+  @media (min-width: 860px){ .mobile-menu{ display:none !important; } }
+
+  section{ position:relative; padding: 140px 0; border-top: 1px solid var(--border); }
+  section:first-of-type{ border-top:none; }
+  @media (max-width: 700px){ section{ padding: 90px 0; } }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding-top: 200px; padding-bottom: 100px; min-height: 92vh; display:flex; flex-direction:column; justify-content:center; }
+  .hero-name{
+    font-size: clamp(3.4rem, 11vw, 8.4rem);
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+  }
+  .hero-sub{
+    margin-top: 28px;
+    font-family:'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+    letter-spacing: -0.01em;
+  }
+  .hero-sub .x{ color: var(--accent); }
+  .hero-copy{
+    margin-top: 22px;
+    max-width: 480px;
+    font-size: 1.05rem;
+    color: #444;
+  }
+  .hero-meta{
+    margin-top: 34px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .hero-bottom{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-end;
+    margin-top: 70px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .scroll-cue{
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display:flex; align-items:center; gap:8px;
+  }
+  .scroll-cue svg{ animation: bob 1.8s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(5px);} }
+  .hero-geo{
+    width: 78px; height: 78px;
+    position: relative;
+  }
+  .hero-geo svg{ width:100%; height:100%; animation: spin 22s linear infinite; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .hero-geo svg, .scroll-cue svg{ animation:none; } }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  @media (max-width: 860px){ .about-grid{ grid-template-columns: 1fr; gap: 44px; } }
+  .about-statement{
+    font-size: clamp(1.6rem, 3.4vw, 2.5rem);
+    margin: 18px 0 26px;
+    max-width: 520px;
+  }
+  .about-para{ color:#444; font-size: 1.02rem; max-width: 480px; }
+  .keyword-list{ display:flex; flex-direction:column; gap: 0; }
+  .keyword-list div{
+    font-family:'Manrope', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    text-transform: uppercase;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    color: #C9C9C9;
+    transition: color .3s ease, padding-left .3s ease;
+    cursor: default;
+  }
+  .keyword-list div:hover{ color: var(--fg); padding-left: 14px; }
+  .keyword-list div:first-child{ border-top: 1px solid var(--border); }
+
+  /* ---------- WORK ---------- */
+  .work-head{ display:flex; justify-content: space-between; align-items:flex-end; margin-bottom: 60px; flex-wrap:wrap; gap: 16px; }
+  .work-head h2{ font-size: clamp(2.1rem, 5vw, 3.6rem); text-transform: uppercase; }
+
+  .project-row{
+    border-bottom: 1px solid var(--border);
+    padding: 44px 0;
+    display:grid;
+    grid-template-columns: 60px 1.4fr 1fr auto;
+    align-items:center;
+    gap: 28px;
+    cursor: pointer;
+    transition: background .25s ease, padding-left .25s ease;
+    position: relative;
+  }
+  .project-row:first-child{ border-top: 1px solid var(--border); }
+  .project-row:hover{ background: var(--bg-shift); padding-left: 14px; }
+  @media (max-width: 860px){
+    .project-row{ grid-template-columns: 1fr; gap: 10px; padding: 30px 0; }
+  }
+  .p-num{ font-family:'Manrope',sans-serif; font-weight:700; color: var(--muted); font-size: 0.95rem; }
+  .p-main h3{
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    text-transform: uppercase;
+    transition: transform .25s ease;
+    display:inline-block;
+  }
+  .project-row:hover .p-main h3{ transform: translateX(10px); }
+  .p-main .p-cat{ font-size: 0.78rem; color: var(--muted); letter-spacing: 0.1em; text-transform:uppercase; margin-top:6px; display:block; }
+  .p-desc{ font-size: 0.92rem; color: #555; }
+  @media (max-width: 860px){ .p-desc{ display:none; } }
+  .p-arrow{
+    width: 34px; height:34px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    opacity: 0;
+    transform: translate(-6px,6px);
+    transition: opacity .25s ease, transform .25s ease, border-color .25s ease;
+  }
+  .project-row:hover .p-arrow{ opacity:1; transform: translate(0,0); border-color: var(--fg); }
+  .p-preview{
+    grid-column: 1 / -1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease;
+  }
+  .project-row:hover .p-preview{ max-height: 220px; }
+  @media (max-width: 860px){
+    .p-preview{ max-height: none; }
+  }
+  .p-preview-inner{ padding-top: 24px; display:flex; gap: 14px; flex-wrap:wrap; align-items:center; }
+  .stack-tag{
+    font-size: 0.76rem;
+    font-family:'Inter',sans-serif;
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    color: #555;
+  }
+  .p-badge{ font-size: 0.76rem; color: var(--accent); font-weight:600; letter-spacing: 0.06em; }
+
+  /* ---------- CASE STUDY OVERLAY ---------- */
+  .overlay{
+    position: fixed; inset:0;
+    background: var(--bg);
+    z-index: 200;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform .4s ease;
+  }
+  .overlay.open{ transform: translateY(0); }
+  .overlay-inner{ max-width: 900px; margin: 0 auto; padding: 120px 40px 100px; }
+  @media (max-width: 700px){ .overlay-inner{ padding: 100px 22px 70px; } }
+  .back-link{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size: 0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+    color: var(--muted);
+    margin-bottom: 40px;
+    cursor: pointer;
+    background:none; border:none; padding:0;
+  }
+  .back-link:hover{ color: var(--fg); }
+  .cs-title{ font-size: clamp(2.2rem, 6vw, 4rem); text-transform: uppercase; margin-bottom: 10px; }
+  .cs-cat{ color: var(--muted); font-size: 0.85rem; letter-spacing: 0.1em; text-transform:uppercase; margin-bottom: 40px; display:block; }
+  .cs-block{ margin-bottom: 44px; max-width: 640px; }
+  .cs-block h4{ font-family:'Inter',sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-weight: 700; }
+  .cs-block p{ color: #333; font-size: 1.02rem; }
+  .cs-diagram{ border: 1px solid var(--border); background: var(--bg-shift); padding: 30px; margin-bottom: 44px; }
+  .cs-diagram svg{ width:100%; height:auto; }
+  .cs-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-top: 20px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 12px 22px;
+    font-size: 0.82rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+    border: 1px solid var(--fg);
+    background: transparent;
+    color: var(--fg);
+    cursor:pointer;
+    transition: background .2s ease, color .2s ease;
+  }
+  .btn:hover{ background: var(--fg); color:#fff; }
+  .btn-primary{ background: var(--fg); color:#fff; }
+  .btn-primary:hover{ background: var(--accent); border-color: var(--accent); }
+  .btn-disabled{ opacity: 0.4; cursor:default; }
+  .btn-disabled:hover{ background:transparent; color:var(--fg); }
+
+  /* ---------- HACKATHON ---------- */
+  .hack{ background: var(--fg); color: var(--bg); }
+  .hack .label{ color: #8C8C8C; }
+  .hack-title{
+    font-size: clamp(2.4rem, 7vw, 5.4rem);
+    text-transform: uppercase;
+    margin: 20px 0 44px;
+  }
+  .hack-name{ font-size: 1.1rem; letter-spacing:0.1em; color: var(--accent); font-weight:700; margin-bottom: 40px; text-transform:uppercase; }
+  .hack-timeline{
+    display:flex; justify-content: space-between;
+    border-top: 1px solid #2b2b2b;
+    border-bottom: 1px solid #2b2b2b;
+    padding: 26px 0;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .hack-timeline span{ font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: #ccc; }
+  .hack-copy{ max-width: 560px; color: #b8b8b8; margin-bottom: 50px; font-size: 1rem; }
+  .hack-tags{ display:flex; gap: 10px; flex-wrap:wrap; }
+  .hack-tags span{
+    font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    border: 1px solid #2b2b2b; padding: 9px 16px; color: #ddd;
+  }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 50px 60px; }
+  @media (max-width: 700px){ .skills-grid{ grid-template-columns: 1fr; gap: 34px; } }
+  .skill-cat h4.label{ margin-bottom: 14px; }
+  .skill-cat .items{
+    font-family:'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .skill-cat .items span{ transition: color .2s ease; cursor: default; }
+  .skill-cat .items span:hover{ color: var(--accent); }
+  .skill-cat .items .dot{ color: var(--muted); font-weight:400; margin: 0 10px; }
+
+  /* ---------- EXPERIENCE + EDUCATION ---------- */
+  .ee-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  @media (max-width: 860px){ .ee-grid{ grid-template-columns: 1fr; gap: 44px; } }
+  .ee-item{ padding: 22px 0; border-bottom: 1px solid var(--border); }
+  .ee-item:first-child{ padding-top:0; }
+  .ee-item h4{ font-size: 1.15rem; text-transform: uppercase; margin-bottom: 6px; }
+  .ee-item .meta{ font-size: 0.8rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 10px; }
+  .ee-item p{ color: #444; font-size: 0.94rem; max-width: 460px; }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach-list{ display:flex; flex-wrap:wrap; gap: 0; border-top: 1px solid var(--border); }
+  .ach-item{
+    flex: 1 1 240px;
+    padding: 28px 26px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .ach-item:last-child{ border-right: none; }
+  .ach-item h4{ font-size: 0.98rem; text-transform: uppercase; margin-bottom: 6px; }
+  .ach-item p{ font-size: 0.86rem; color: var(--muted); }
+
+  /* ---------- CTA / CONTACT ---------- */
+  .cta-title{ font-size: clamp(2.6rem, 8vw, 6rem); text-transform: uppercase; margin-bottom: 40px; }
+  .cta-copy{ max-width: 480px; color:#444; font-size: 1.05rem; margin-bottom: 46px; }
+  .cta-actions{ display:flex; gap: 14px; flex-wrap:wrap; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding: 46px 0; border-top: 1px solid var(--border); }
+  .footer-row{ display:flex; justify-content: space-between; align-items:center; flex-wrap:wrap; gap: 16px; }
+  .footer-mark{ font-family:'Manrope',sans-serif; font-weight:800; text-transform: uppercase; letter-spacing: 0.02em; }
+  .footer-sub{ font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+  .footer-tags{ font-size: 0.78rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .footer-copy{ font-size: 0.75rem; color: #B9B9B9; margin-top: 22px; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <div class="nav-mark">Pratiksha Patil</div>
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="status"><span class="dot"></span>Available for hackathons</div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="wrap mobile-menu" id="mobileMenu">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <h1 class="hero-name">Pratiksha<br>Patil</h1>
+    <p class="hero-sub">AI Engineer <span class="x">×</span> Creative Builder</p>
+    <p class="hero-copy">I build practical products at the intersection of AI, Web3, blockchain, and user experience.</p>
+    <p class="hero-meta">Engineering Student · Mumbai · India</p>
+    <div class="hero-bottom">
+      <a href="#work" class="scroll-cue">Scroll to explore
+        <svg width="12" height="16" viewBox="0 0 12 16" fill="none"><path d="M6 0V15M6 15L1 10M6 15L11 10" stroke="#8C8C8C" stroke-width="1.4"/></svg>
+      </a>
+      <div class="hero-geo">
+        <svg viewBox="0 0 80 80" fill="none">
+          <rect x="10" y="10" width="60" height="60" stroke="#0A0A0A" stroke-width="1"/>
+          <circle cx="40" cy="40" r="22" stroke="#0218B4" stroke-width="1"/>
+          <line x1="10" y1="10" x2="70" y2="70" stroke="#E5E5E5" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="label reveal">01 / About</div>
+    <div class="about-grid">
+      <div>
+        <p class="about-statement reveal">I like turning complex ideas into simple, working products.</p>
+        <p class="about-para reveal">I'm an engineering student who enjoys exploring technology, building through real challenges, and understanding how things work rather than simply using them. I enjoy hackathons, teamwork, product thinking, and turning ideas into functional prototypes.</p>
+      </div>
+      <div class="keyword-list reveal">
+        <div>AI</div>
+        <div>Web3</div>
+        <div>UX</div>
+        <div>Building</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="wrap">
+    <div class="work-head">
+      <div>
+        <div class="label reveal">02 / Selected Work</div>
+        <h2 class="reveal">Things I've built</h2>
+      </div>
+    </div>
+
+    <div class="project-row reveal" data-project="kaizen">
+      <span class="p-num">01</span>
+      <div class="p-main">
+        <h3>Kaizen</h3>
+        <span class="p-cat">Web3 / Security</span>
+      </div>
+      <p class="p-desc">Autonomous smart-contract security platform for on-chain monitoring and threat alerts.</p>
+      <div class="p-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0A0A0A" stroke-width="1.3"/></svg>
+      </div>
+      <div class="p-preview">
+        <div class="p-preview-inner">
+          <span class="p-badge">ETHMumbai · 48 Hours</span>
+          <span class="stack-tag">Next.js</span><span class="stack-tag">FastAPI</span><span class="stack-tag">Solidity</span><span class="stack-tag">Ethereum</span><span class="stack-tag">Machine Learning</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-row reveal" data-project="aegis">
+      <span class="p-num">02</span>
+      <div class="p-main">
+        <h3>Aegis</h3>
+        <span class="p-cat">AI × Blockchain</span>
+      </div>
+      <p class="p-desc">AI-powered threat detection combined with blockchain-backed verification.</p>
+      <div class="p-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0A0A0A" stroke-width="1.3"/></svg>
+      </div>
+      <div class="p-preview">
+        <div class="p-preview-inner">
+          <span class="stack-tag">Next.js</span><span class="stack-tag">FastAPI</span><span class="stack-tag">MongoDB</span><span class="stack-tag">AI</span><span class="stack-tag">Blockchain</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-row reveal" data-project="omnix">
+      <span class="p-num">03</span>
+      <div class="p-main">
+        <h3>Omnix</h3>
+        <span class="p-cat">AI × DAO × UX</span>
+      </div>
+      <p class="p-desc">AI-powered DAO platform simplifying decentralized governance workflows.</p>
+      <div class="p-arrow">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0A0A0A" stroke-width="1.3"/></svg>
+      </div>
+      <div class="p-preview">
+        <div class="p-preview-inner">
+          <span class="stack-tag">Web3</span><span class="stack-tag">DAO</span><span class="stack-tag">AI</span><span class="stack-tag">UX</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY OVERLAYS -->
+<div class="overlay" id="overlay-kaizen">
+  <div class="overlay-inner">
+    <button class="back-link" onclick="closeOverlay()">← Back to work</button>
+    <span class="cs-cat">Web3 / Security</span>
+    <h2 class="cs-title">Kaizen</h2>
+    <div class="cs-diagram">
+      <svg viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="10">
+        <rect x="0" y="40" width="100" height="40" fill="none" stroke="#0A0A0A"/>
+        <text x="50" y="64" text-anchor="middle">Smart Contract</text>
+        <line x1="100" y1="60" x2="140" y2="60" stroke="#0A0A0A"/>
+        <rect x="140" y="40" width="100" height="40" fill="none" stroke="#0A0A0A"/>
+        <text x="190" y="64" text-anchor="middle">Monitoring</text>
+        <line x1="240" y1="60" x2="280" y2="60" stroke="#0A0A0A"/>
+        <rect x="280" y="40" width="110" height="40" fill="none" stroke="#0A0A0A"/>
+        <text x="335" y="64" text-anchor="middle">Threat Detection</text>
+        <line x1="390" y1="60" x2="430" y2="60" stroke="#0218B4"/>
+        <rect x="430" y="40" width="70" height="40" fill="none" stroke="#0218B4"/>
+        <text x="465" y="64" text-anchor="middle" fill="#0218B4">Alert</text>
+      </svg>
+    </div>
+    <div class="cs-block"><h4>The Problem</h4><p>On-chain activity can hide abnormal or malicious behaviour that goes unnoticed until damage is already done, and most teams only find out after funds or trust are lost.</p></div>
+    <div class="cs-block"><h4>The Idea</h4><p>Build a system that watches on-chain activity continuously, learns what normal behaviour looks like, and raises an alert the moment something deviates from it.</p></div>
+    <div class="cs-block"><h4>How It Works</h4><p>Smart contract activity is streamed into a monitoring layer, which is analysed for anomalies. Flagged activity is scored and surfaced as a security alert before it can cause further harm.</p></div>
+    <div class="cs-block"><h4>My Contribution</h4><p>Worked with teammates Divyam Singh and Mayur Shelke across ideation, development, debugging, rapid iteration, and the final judge presentation during the 48-hour build window.</p></div>
+    <div class="cs-block"><h4>Tech Stack</h4><div class="p-preview-inner" style="margin-top:0;"><span class="stack-tag">Next.js</span><span class="stack-tag">Node.js</span><span class="stack-tag">FastAPI</span><span class="stack-tag">Solidity</span><span class="stack-tag">Ethereum</span><span class="stack-tag">Machine Learning</span></div></div>
+    <div class="cs-block"><h4>The Outcome</h4><p>A functional Web3 security prototype, built and demoed within 48 hours at ETHMumbai.</p></div>
+    <div class="cs-block"><h4>What I Learned</h4><p>How to move fast without cutting corners on the core idea, and how to explain a technical system clearly to judges who are seeing it for the first time.</p></div>
+    <div class="cs-actions">
+      <a href="#" class="btn btn-disabled" aria-disabled="true">Live Demo</a>
+      <a href="#" class="btn btn-disabled" aria-disabled="true">GitHub</a>
+      <button class="btn btn-primary" onclick="closeOverlay()">Back to Work</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay-aegis">
+  <div class="overlay-inner">
+    <button class="back-link" onclick="closeOverlay()">← Back to work</button>
+    <span class="cs-cat">AI × Blockchain</span>
+    <h2 class="cs-title">Aegis</h2>
+    <div class="cs-diagram">
+      <svg viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="10">
+        <rect x="0" y="40" width="110" height="40" fill="none" stroke="#0A0A0A"/>
+        <text x="55" y="64" text-anchor="middle">Threat Detected</text>
+        <line x1="110" y1="60" x2="150" y2="60" stroke="#0A0A0A"/>
+        <rect x="150" y="40" width="100" height="40" fill="none" stroke="#0A0A0A"/>
+        <text x="200" y="64" text-anchor="middle">AI Analysis</text>
+        <line x1="250" y1="60" x2="290" y2="60" stroke="#0A0A0A"/>
+        <rect x="290" y="40" width="90" height="40" fill="none" stroke="#0A0A0A"/>
+        <text x="335" y="64" text-anchor="middle">Risk Score</text>
+        <line x1="380" y1="60" x2="420" y2="60" stroke="#0218B4"/>
+        <rect x="420" y="40" width="80" height="40" fill="none" stroke="#0218B4"/>
+        <text x="460" y="64" text-anchor="middle" fill="#0218B4">Chain Verify</text>
+      </svg>
+    </div>
+    <div class="cs-block"><h4>The Problem</h4><p>Digital interactions need both intelligent threat detection and a way to prove that a record hasn't been tampered with after the fact.</p></div>
+    <div class="cs-block"><h4>The Idea</h4><p>Pair AI-based threat detection with blockchain-backed verification, so flagged events are not only caught but also permanently and transparently recorded.</p></div>
+    <div class="cs-block"><h4>How It Works</h4><p>Incoming activity is analysed by an AI model for threat signals, scored for risk, and — where relevant — anchored to a blockchain record for tamper-evident verification.</p></div>
+    <div class="cs-block"><h4>My Contribution</h4><p>Designed the system architecture covering threat analysis, verification, and tamper-evident record-keeping, and helped integrate the AI and blockchain layers into one workflow.</p></div>
+    <div class="cs-block"><h4>Tech Stack</h4><div class="p-preview-inner" style="margin-top:0;"><span class="stack-tag">Next.js</span><span class="stack-tag">FastAPI</span><span class="stack-tag">MongoDB</span><span class="stack-tag">AI</span><span class="stack-tag">Blockchain</span></div></div>
+    <div class="cs-block"><h4>The Outcome</h4><p>A working web platform demonstrating an end-to-end flow from threat detection to blockchain-backed verification.</p></div>
+    <div class="cs-block"><h4>What I Learned</h4><p>How to design a system where two different technologies (AI and blockchain) genuinely need each other, instead of bolting one onto the other for the sake of it.</p></div>
+    <div class="cs-actions">
+      <a href="#" class="btn btn-disabled" aria-disabled="true">Live Demo</a>
+      <a href="#" class="btn btn-disabled" aria-disabled="true">GitHub</a>
+      <button class="btn btn-primary" onclick="closeOverlay()">Back to Work</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay-omnix">
+  <div class="overlay-inner">
+    <button class="back-link" onclick="closeOverlay()">← Back to work</button>
+    <span class="cs-cat">AI × DAO × UX</span>
+    <h2 class="cs-title">Omnix</h2>
+    <div class="cs-diagram">
+      <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" font-family="Inter" font-size="10">
+        <rect x="100" y="0" width="100" height="36" fill="none" stroke="#0A0A0A"/>
+        <text x="150" y="22" text-anchor="middle">Proposal</text>
+        <line x1="150" y1="36" x2="150" y2="60" stroke="#0A0A0A"/>
+        <rect x="100" y="60" width="100" height="36" fill="none" stroke="#0A0A0A"/>
+        <text x="150" y="82" text-anchor="middle">AI Context</text>
+        <line x1="150" y1="96" x2="150" y2="120" stroke="#0A0A0A"/>
+        <rect x="100" y="120" width="100" height="36" fill="none" stroke="#0A0A0A"/>
+        <text x="150" y="142" text-anchor="middle">Community Vote</text>
+        <line x1="150" y1="156" x2="150" y2="180" stroke="#0218B4"/>
+        <rect x="100" y="180" width="100" height="36" fill="none" stroke="#0218B4"/>
+        <text x="150" y="202" text-anchor="middle" fill="#0218B4">Decision</text>
+      </svg>
+    </div>
+    <div class="cs-block"><h4>The Problem</h4><p>Decentralized governance is powerful but hard to use: proposals, voting power, and treasury state are scattered and cognitively heavy for everyday members to follow.</p></div>
+    <div class="cs-block"><h4>The Idea</h4><p>Turn complex governance mechanics into an intent-driven flow — proposing, voting, and reviewing decisions — with AI assistance guiding members through it.</p></div>
+    <div class="cs-block"><h4>How It Works</h4><p>A proposal moves through contextual AI assistance that summarises intent and impact, then into community voting, with voting power, proposals, and treasury state visualised throughout.</p></div>
+    <div class="cs-block"><h4>My Contribution</h4><p>Designed the AI-powered DAO platform end to end, translating blockchain governance mechanics into intuitive, user-centred workflows and visual states.</p></div>
+    <div class="cs-block"><h4>Tech Stack</h4><div class="p-preview-inner" style="margin-top:0;"><span class="stack-tag">Web3</span><span class="stack-tag">DAO Governance</span><span class="stack-tag">AI</span><span class="stack-tag">UX</span></div></div>
+    <div class="cs-block"><h4>The Outcome</h4><p>A governance interface concept that reduces the cognitive load of participating in a DAO, from reading a proposal to casting an informed vote.</p></div>
+    <div class="cs-block"><h4>What I Learned</h4><p>That good UX for Web3 isn't about hiding the blockchain — it's about translating what's actually happening on-chain into language and visuals a person can act on.</p></div>
+    <div class="cs-actions">
+      <a href="#" class="btn btn-disabled" aria-disabled="true">Live Demo</a>
+      <a href="#" class="btn btn-disabled" aria-disabled="true">GitHub</a>
+      <button class="btn btn-primary" onclick="closeOverlay()">Back to Work</button>
+    </div>
+  </div>
+</div>
+
+<!-- HACKATHON -->
+<section class="hack">
+  <div class="wrap">
+    <div class="label reveal">03 / Hackathons</div>
+    <h2 class="hack-title reveal">48 Hours.<br>One idea.<br>One working prototype.</h2>
+    <div class="hack-name reveal">ETHMumbai</div>
+    <div class="hack-timeline reveal">
+      <span>Ideate</span><span>→</span><span>Build</span><span>→</span><span>Debug</span><span>→</span><span>Iterate</span><span>→</span><span>Pitch</span>
+    </div>
+    <p class="hack-copy reveal">Built Kaizen during a 48-hour ETHMumbai hackathon while collaborating across ideation, development, debugging, rapid iteration, and final presentation.</p>
+    <div class="hack-tags reveal">
+      <span>Teamwork</span><span>Rapid Prototyping</span><span>Problem Solving</span><span>Technical Pitching</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="label reveal">04 / Toolkit</div>
+    <h2 class="reveal" style="margin: 18px 0 50px; font-size: clamp(2rem,4.5vw,3rem); text-transform:uppercase;">My toolkit</h2>
+    <div class="skills-grid">
+      <div class="skill-cat reveal">
+        <h4 class="label">Languages</h4>
+        <div class="items"><span>C</span><span class="dot">·</span><span>Python</span><span class="dot">·</span><span>Java</span></div>
+      </div>
+      <div class="skill-cat reveal">
+        <h4 class="label">Development</h4>
+        <div class="items"><span>HTML</span><span class="dot">·</span><span>CSS</span><span class="dot">·</span><span>Next.js</span><span class="dot">·</span><span>FastAPI</span></div>
+      </div>
+      <div class="skill-cat reveal">
+        <h4 class="label">Database</h4>
+        <div class="items"><span>MongoDB</span><span class="dot">·</span><span>MySQL</span></div>
+      </div>
+      <div class="skill-cat reveal">
+        <h4 class="label">Blockchain</h4>
+        <div class="items"><span>Ethereum</span><span class="dot">·</span><span>Smart Contracts</span><span class="dot">·</span><span>Web3</span></div>
+      </div>
+      <div class="skill-cat reveal">
+        <h4 class="label">Design</h4>
+        <div class="items"><span>Figma</span><span class="dot">·</span><span>Canva</span></div>
+      </div>
+      <div class="skill-cat reveal">
+        <h4 class="label">Tools</h4>
+        <div class="items"><span>Git</span><span class="dot">·</span><span>GitHub</span><span class="dot">·</span><span>Linux</span><span class="dot">·</span><span>VS Code</span></div>
+      </div>
+      <div class="skill-cat reveal" style="grid-column: 1 / -1;">
+        <h4 class="label">Concepts</h4>
+        <div class="items"><span>Data Structures</span><span class="dot">·</span><span>OOP</span><span class="dot">·</span><span>DBMS</span><span class="dot">·</span><span>Computer Networks</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE + EDUCATION -->
+<section id="experience">
+  <div class="wrap">
+    <div class="label reveal">05 / Experience</div>
+    <div class="ee-grid" style="margin-top: 30px;">
+      <div class="reveal">
+        <div class="ee-item">
+          <h4>Industrial Trainee</h4>
+          <div class="meta">Pinnacle Infotech, Mumbai · Jun 2023 — Jul 2023</div>
+          <p>Advanced Java Programme. Completed intensive industrial training focused on Advanced Java and practical software development.</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="ee-item">
+          <h4>B.E. Artificial Intelligence</h4>
+          <div class="meta">Shivajirao S. Jondhale College of Engineering, Mumbai · 2024 — Present</div>
+        </div>
+        <div class="ee-item">
+          <h4>Diploma in Computer Engineering</h4>
+          <div class="meta">Saraswati Institute of Technology, Mumbai · 2021 — 2024 · 79.31%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section>
+  <div class="wrap">
+    <div class="label reveal">06 / Achievements</div>
+    <div class="ach-list reveal" style="margin-top:30px;">
+      <div class="ach-item">
+        <h4>Joint Treasurer</h4>
+        <p>Technova Team · 2024–2025</p>
+      </div>
+      <div class="ach-item">
+        <h4>ETHMumbai</h4>
+        <p>48-hour Web3 hackathon</p>
+      </div>
+      <div class="ach-item">
+        <h4>Technical Events</h4>
+        <p>College-level event organization</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="label reveal">07 / Contact</div>
+    <h2 class="cta-title reveal">Let's build<br>something<br>useful.</h2>
+    <p class="cta-copy reveal">Open to hackathons, interesting problems, collaborations, and opportunities to build.</p>
+    <div class="cta-actions reveal">
+      <a href="https://github.com/Nestahive" target="_blank" rel="noopener" class="btn btn-primary">GitHub</a>
+      <a href="https://linkedin.com/in/pratiksha-patil-102520301" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+      <a href="mailto:work.patilpratiksha@gmail.com" class="btn">Email</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div>
+        <div class="footer-mark">Pratiksha Patil</div>
+        <div class="footer-sub">AI Engineer · Creative Builder</div>
+      </div>
+      <div class="footer-tags">AI × Web3 × UX</div>
+    </div>
+    <div class="footer-copy">© 2026 Pratiksha Patil</div>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const navToggle = document.getElementById('navToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // case study overlay logic
+  const rows = document.querySelectorAll('.project-row');
+  rows.forEach(row => {
+    row.addEventListener('click', (e) => {
+      const id = row.getAttribute('data-project');
+      openOverlay(id);
+    });
+  });
+
+  function openOverlay(id){
+    const el = document.getElementById('overlay-' + id);
+    if(!el) return;
+    el.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    history.pushState({ project: id }, '', '#/projects/' + id);
+  }
+  function closeOverlay(){
+    document.querySelectorAll('.overlay.open').forEach(el => el.classList.remove('open'));
+    document.body.style.overflow = '';
+    if(location.hash.startsWith('#/projects/')){
+      history.pushState({}, '', location.pathname + '#work');
+    }
+  }
+  window.addEventListener('popstate', () => {
+    if(!location.hash.startsWith('#/projects/')){
+      document.querySelectorAll('.overlay.open').forEach(el => el.classList.remove('open'));
+      document.body.style.overflow = '';
+    }
+  });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeOverlay(); });
+
+  // open directly if URL loaded with a project hash
+  window.addEventListener('DOMContentLoaded', () => {
+    const m = location.hash.match(/#\/projects\/(\w+)/);
+    if(m) openOverlay(m[1]);
+  });
+</script>
+
+</body>
+</html>
